@@ -17,7 +17,7 @@ class Puzzle extends Equatable {
     final tiles = <Tile>[]; //lista iniziale vuota
     int value = 1; //valore della tessera
     final emptyPos = Position(x: rows, y: cols);
-    print("INIT EMPTY POSITION TO: $emptyPos");
+    // print("INIT EMPTY POSITION TO: $emptyPos");
     for (var x = 1; x <= rows; x++) {
       for (var y = 1; y <= cols; y++) {
         final add = !(x == rows &&
@@ -32,6 +32,67 @@ class Puzzle extends Equatable {
     } //fine giro sulle y (righr)
 
     return Puzzle._(tiles: tiles, emptyPosition: emptyPos);
+  }
+
+  bool canMove(Position tilePosition) {
+    Position emptyPos = emptyPosition;
+    // print("EMPTY POS is $emptyPos");
+    // print("TILE POS is $tilePosition");
+    if (tilePosition.y == emptyPos.y &&
+        ((tilePosition.x == emptyPos.x + 1) ||
+            (tilePosition.x == emptyPos.x - 1))) {
+      return true;
+    }
+    if (tilePosition.x == emptyPos.x &&
+        ((tilePosition.y == emptyPos.y - 1) ||
+            (tilePosition.y == emptyPos.y + 1))) {
+      return true;
+    }
+    return false;
+  }
+
+  //resituisce una nuova istanza di Puzzle con le tiles spostate
+  Puzzle move(Tile tile) {
+    //mi faccio copia delle tessere originali
+    final copy = [...tiles];
+    //stessa y muovo in x?
+    if (tile.position.y == emptyPosition.y) {
+      //prendo la riga con la stessa y della posizione vuota
+      final row =
+          tiles.where((element) => element.position.y == emptyPosition.y);
+      //*DESTRA
+      if (tile.position.x < emptyPosition.x) {
+        //CICLO PER DARE LA POSS DI SPOSTARE TUTTE LE TESSERE A DESTRA (in questo caso no ma in futuro)
+        //E LO SPOSTAMENTO DEVE AVVENIRE SOLO PER LE TESSERE CON LA X >= della tessera su cui ho cliccato
+        //MA NON OLTRE QUELLA DELLO SPAZIO VUOTO
+        for (final t in row) {
+          if (t.position.x < tile.position.x ||
+              t.position.x > emptyPosition.x) {
+            //IGNORO
+            continue;
+          }
+          //assegno nuova posizione alla tile
+          copy[t.value - 1] =
+              t.move(Position(x: t.position.x + 1, y: t.position.y));
+        }
+      } else {
+        //*SINISTRA
+      }
+    } else {
+      //muovo in y
+      //prendo la colonna con la stessa x della posizione vuota
+      final column =
+          tiles.where((element) => element.position.x == emptyPosition.x);
+      if (tile.position.y < emptyPosition.y) {
+        //*BASSO
+      } else {
+        //*VERSO L'ALTO
+      }
+    }
+    return Puzzle._(
+      tiles: copy,
+      emptyPosition: tile.position, //al posto della tessera resta il vuoto
+    );
   }
 
   @override
