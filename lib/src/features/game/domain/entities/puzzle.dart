@@ -16,9 +16,10 @@ class Puzzle extends Equatable {
   factory Puzzle.create(int cols, int rows) {
     final tiles = <Tile>[]; //lista iniziale vuota
     int value = 1; //valore della tessera
-    final emptyPos = Position(x: cols, y: cols);
-    for (var y = 1; y <= cols; y++) {
-      for (var x = 0; x <= rows; x++) {
+    final emptyPos = Position(x: rows, y: cols);
+    print("INIT EMPTY POSITION TO: $emptyPos");
+    for (var x = 1; x <= rows; x++) {
+      for (var y = 1; y <= cols; y++) {
         final add = !(x == rows &&
             y == cols); //poss agg tessere o sono nel posto del spazio vuoto?
         if (add) {

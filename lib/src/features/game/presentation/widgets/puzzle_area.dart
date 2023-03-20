@@ -12,18 +12,22 @@ class PuzzleArea extends StatelessWidget {
       color: Colors.black12,
       child: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
+          //CREO L'IMMAGINE DEL ROMBO
           //recupero lo stato e resto a guardarne i cambiamenti
           final state = context.watch<GameCubit>().state;
           final tileWidth = constraints.maxWidth / state.cols;
           final tileHeight = constraints.maxHeight / state.rows;
           return Stack(
             children: [
-              ...state.puzzle.tiles
-                  .map((tile) => PuzzleTile(
-                        height: tileHeight,
-                        width: tileWidth,
-                      ))
-                  .toList()
+              ...state.puzzle.tiles.asMap().entries.map((e) => PuzzleTile(
+                    index: e.key,
+                    width: tileWidth,
+                    height: tileHeight,
+                    tile: e.value,
+                    onTap: () {
+                      context.read<GameCubit>().onTileTapped(e.value);
+                    },
+                  ))
             ],
           );
         },

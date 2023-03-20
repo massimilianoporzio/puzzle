@@ -17,8 +17,8 @@ class GameState extends Equatable {
   //all'inizio 4x4 non risolto e con zero mosse
   factory GameState.inital() => GameState(
         cols: 2,
-        rows: 9,
-        puzzle: Puzzle.create(2, 9), //2 colonne 9 righe dumura
+        rows: 5,
+        puzzle: Puzzle.create(2, 5), //2 colonne 5 righe dumura
         solved: false,
         moves: 0,
       );
