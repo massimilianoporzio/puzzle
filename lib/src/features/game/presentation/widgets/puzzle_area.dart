@@ -8,7 +8,10 @@ class PuzzleArea extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("MEDIAQUERY SIZE: ${MediaQuery.of(context).size}");
     return Container(
+      width: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.height,
       color: Colors.black12,
       child: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
@@ -17,7 +20,8 @@ class PuzzleArea extends StatelessWidget {
 
           return BlocBuilder<GameCubit, GameState>(
             builder: (context, state) {
-              print("Bloc Builder");
+              // print("Bloc Builder");
+              // print("Constraints: $constraints");
               final tileWidth = constraints.maxWidth / state.cols;
               final tileHeight = constraints.maxHeight / state.rows;
               return Stack(

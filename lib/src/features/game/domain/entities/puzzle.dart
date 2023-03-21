@@ -16,12 +16,12 @@ class Puzzle extends Equatable {
   factory Puzzle.create(int cols, int rows) {
     final tiles = <Tile>[]; //lista iniziale vuota
     int value = 1; //valore della tessera
-    final emptyPos = Position(x: rows, y: cols);
+    final emptyPos = Position(x: cols, y: rows);
     // print("INIT EMPTY POSITION TO: $emptyPos");
-    for (var x = 1; x <= rows; x++) {
-      for (var y = 1; y <= cols; y++) {
-        final add = !(x == rows &&
-            y == cols); //poss agg tessere o sono nel posto del spazio vuoto?
+    for (var y = 1; y <= rows; y++) {
+      for (var x = 1; x <= cols; x++) {
+        final add = !(y == rows &&
+            x == cols); //poss agg tessere o sono nel posto del spazio vuoto?
         if (add) {
           final pos = Position(x: x, y: y);
           final tile = Tile(value: value, position: pos, correctPosition: pos);
@@ -77,6 +77,15 @@ class Puzzle extends Equatable {
         }
       } else {
         //*SINISTRA
+        for (final t in row) {
+          if (t.position.x > tile.position.x ||
+              t.position.x < emptyPosition.x) {
+            //IGNORO
+            continue;
+          }
+          copy[t.value - 1] =
+              t.move(Position(x: t.position.x - 1, y: t.position.y));
+        }
       }
     } else {
       //muovo in y
@@ -85,8 +94,27 @@ class Puzzle extends Equatable {
           tiles.where((element) => element.position.x == emptyPosition.x);
       if (tile.position.y < emptyPosition.y) {
         //*BASSO
+        for (final t in column) {
+          if (t.position.y < tile.position.y ||
+              t.position.y > emptyPosition.y) {
+            //IGNORO
+            continue;
+          }
+          //assegno nuova posizione alla tile
+          copy[t.value - 1] =
+              t.move(Position(x: t.position.x, y: t.position.y + 1));
+        }
       } else {
         //*VERSO L'ALTO
+        for (final t in column) {
+          if (t.position.y > tile.position.y ||
+              t.position.y < emptyPosition.y) {
+            //IGNORO
+            continue;
+          }
+          copy[t.value - 1] =
+              t.move(Position(x: t.position.x, y: t.position.y - 1));
+        }
       }
     }
     return Puzzle._(

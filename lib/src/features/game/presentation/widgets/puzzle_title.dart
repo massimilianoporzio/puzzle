@@ -22,8 +22,8 @@ class PuzzleTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      left: (tile.position.y - 1) * width,
-      top: (tile.position.x - 1) * height,
+      left: (tile.position.x - 1) * width,
+      top: (tile.position.y - 1) * height,
       child: GestureDetector(
         onTap: onTap,
         child: Container(
