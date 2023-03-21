@@ -9,7 +9,7 @@ part 'game_state.dart';
 
 class GameCubit extends Cubit<GameState> {
   late AudioPlayer player;
-  GameCubit() : super(GameState.inital()) {
+  GameCubit() : super(GameState.initial()) {
     player = AudioPlayer()..setReleaseMode(ReleaseMode.stop);
   }
 
@@ -19,8 +19,19 @@ class GameCubit extends Cubit<GameState> {
     final canMove = puzzle.canMove(tile.position);
     if (canMove) {
       player.stop();
+      player.setPlaybackRate(1.0);
       player.play(AssetSource('click.mp3'));
       emit(state.copyWith(puzzle: puzzle.move(tile)));
     }
+  }
+
+  void resetPuzzle() async {
+    player.stop();
+    player.setPlaybackRate(1.5);
+
+    emit(state.copyWith(reset: true));
+    player.play(AssetSource('reset.mp3'));
+
+    emit(GameState.initial());
   }
 }

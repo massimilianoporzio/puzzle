@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:puzzle/src/features/game/presentation/cubit/game_cubit.dart';
 import 'package:puzzle/src/features/game/presentation/widgets/puzzle_area.dart';
 
 class GamePage extends StatelessWidget {
@@ -9,6 +11,14 @@ class GamePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Dumura"),
+        actions: [
+          IconButton(
+            onPressed: () {
+              context.read<GameCubit>().resetPuzzle();
+            },
+            icon: const Icon(Icons.restart_alt),
+          )
+        ],
       ),
       body: SafeArea(
         child: Column(

@@ -1,3 +1,4 @@
+import 'package:animated_widgets/animated_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:puzzle/src/features/game/presentation/cubit/game_cubit.dart';
@@ -21,6 +22,7 @@ class PuzzleArea extends StatelessWidget {
           return BlocBuilder<GameCubit, GameState>(
             builder: (context, state) {
               // print("Bloc Builder");
+              print("state reset is: ${state.reset} ");
               // print("Constraints: $constraints");
               final tileWidth = constraints.maxWidth / state.cols;
               final tileHeight = constraints.maxHeight / state.rows;

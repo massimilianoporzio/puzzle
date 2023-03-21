@@ -6,6 +6,7 @@ class GameState extends Equatable {
   final Puzzle puzzle; //il nostro gioco di cui tenere conto
   final bool solved; //puzzle risolto?
   final int moves; //numero di mosse fatte
+  final bool reset; //resettato?
 
   const GameState({
     required this.cols,
@@ -13,9 +14,11 @@ class GameState extends Equatable {
     required this.puzzle,
     required this.solved,
     required this.moves,
+    this.reset = false,
   });
+
   //all'inizio 4x4 non risolto e con zero mosse
-  factory GameState.inital() => GameState(
+  factory GameState.initial() => GameState(
         cols: 2,
         rows: 5,
         puzzle: Puzzle.create(2, 5), //2 colonne 5 righe dumura
@@ -25,7 +28,7 @@ class GameState extends Equatable {
 
   @override
   String toString() {
-    return 'GameState(cols: $cols, rows: $rows, puzzle: $puzzle, solved: $solved, moves: $moves)';
+    return 'GameState(cols: $cols, rows: $rows, puzzle: $puzzle, solved: $solved, moves: $moves, reset: $reset)';
   }
 
   @override
@@ -36,6 +39,7 @@ class GameState extends Equatable {
       puzzle,
       solved,
       moves,
+      reset,
     ];
   }
 
@@ -45,6 +49,7 @@ class GameState extends Equatable {
     Puzzle? puzzle,
     bool? solved,
     int? moves,
+    bool? reset,
   }) {
     return GameState(
       cols: cols ?? this.cols,
@@ -52,6 +57,7 @@ class GameState extends Equatable {
       puzzle: puzzle ?? this.puzzle,
       solved: solved ?? this.solved,
       moves: moves ?? this.moves,
+      reset: reset ?? this.reset,
     );
   }
 }

@@ -7,6 +7,7 @@ environment:
   sdk: '>=2.19.3 <3.0.0'
 
 dependencies:
+  animated_widgets: ^1.1.0
   audioplayers: ^3.0.1
   equatable: ^2.0.5
   flutter:
@@ -23,3 +24,4 @@ flutter:
   uses-material-design: true
   assets:
     - assets/click.mp3
+    - assets/reset.mp3
