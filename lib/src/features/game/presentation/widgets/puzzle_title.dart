@@ -22,13 +22,13 @@ class PuzzleTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      left: (tile.position.x - 1) * width,
-      top: (tile.position.y - 1) * height,
+      left: (tile.position.x - 1) * width + 1,
+      top: (tile.position.y - 1) * height + 1,
       child: GestureDetector(
         onTap: onTap,
         child: Container(
-          margin: const EdgeInsets.all(2.0),
-          color: Colors.amber,
+          // margin: const EdgeInsets.all(2.0),
+          color: Colors.white,
           height: height - 2,
           width: width - 2,
           alignment: Alignment.center,

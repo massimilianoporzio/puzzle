@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:puzzle/src/features/game/presentation/cubit/game_cubit.dart';
+import 'package:puzzle/src/features/game/presentation/cubit/sound/sound_cubit.dart';
+
 import 'package:puzzle/src/features/game/presentation/widgets/puzzle_area.dart';
+
+import '../cubit/game/game_cubit.dart';
 
 class GamePage extends StatelessWidget {
   const GamePage({super.key});
@@ -12,6 +15,13 @@ class GamePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Dumura"),
         actions: [
+          IconButton(onPressed: () {
+            context.read<SoundCubit>().toggleMute();
+          }, icon: BlocBuilder<SoundCubit, SoundState>(
+            builder: (context, state) {
+              return Icon(state.muted ? Icons.volume_off : Icons.volume_mute);
+            },
+          )),
           IconButton(
             onPressed: () {
               context.read<GameCubit>().resetPuzzle();

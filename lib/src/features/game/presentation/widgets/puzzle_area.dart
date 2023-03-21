@@ -1,11 +1,20 @@
-import 'package:animated_widgets/animated_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:puzzle/src/features/game/presentation/cubit/game_cubit.dart';
+
 import 'package:puzzle/src/features/game/presentation/widgets/puzzle_title.dart';
 
-class PuzzleArea extends StatelessWidget {
+import '../cubit/game/game_cubit.dart';
+import '../cubit/sound/sound_cubit.dart';
+
+class PuzzleArea extends StatefulWidget {
   const PuzzleArea({super.key});
+
+  @override
+  State<PuzzleArea> createState() => _PuzzleAreaState();
+}
+
+class _PuzzleAreaState extends State<PuzzleArea> {
+  bool isMuted = false;
 
   @override
   Widget build(BuildContext context) {
@@ -19,27 +28,30 @@ class PuzzleArea extends StatelessWidget {
           //CREO L'IMMAGINE DEL ROMBO
           //recupero lo stato e resto a guardarne i cambiamenti
 
-          return BlocBuilder<GameCubit, GameState>(
-            builder: (context, state) {
-              // print("Bloc Builder");
-              print("state reset is: ${state.reset} ");
-              // print("Constraints: $constraints");
-              final tileWidth = constraints.maxWidth / state.cols;
-              final tileHeight = constraints.maxHeight / state.rows;
-              return Stack(
-                children: [
-                  ...state.puzzle.tiles.asMap().entries.map((e) => PuzzleTile(
-                        index: e.key,
-                        width: tileWidth,
-                        height: tileHeight,
-                        tile: e.value,
-                        onTap: () {
-                          context.read<GameCubit>().onTileTapped(e.value);
-                        },
-                      ))
-                ],
-              );
-            },
+          return BlocListener<SoundCubit, SoundState>(
+            listener: (context, state) {},
+            child: BlocBuilder<GameCubit, GameState>(
+              builder: (context, state) {
+                // print("Bloc Builder");
+
+                // print("Constraints: $constraints");
+                final tileWidth = constraints.maxWidth / state.cols;
+                final tileHeight = constraints.maxHeight / state.rows;
+                return Stack(
+                  children: [
+                    ...state.puzzle.tiles.asMap().entries.map((e) => PuzzleTile(
+                          index: e.key,
+                          width: tileWidth,
+                          height: tileHeight,
+                          tile: e.value,
+                          onTap: () {
+                            context.read<GameCubit>().onTileTapped(e.value);
+                          },
+                        ))
+                  ],
+                );
+              },
+            ),
           );
         },
       ),
