@@ -1,3 +1,4 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:get_it/get_it.dart';
 import 'package:puzzle/src/features/game/presentation/cubit/game_cubit.dart';
 
