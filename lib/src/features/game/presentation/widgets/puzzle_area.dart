@@ -8,7 +8,7 @@ class PuzzleArea extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("MEDIAQUERY SIZE: ${MediaQuery.of(context).size}");
+    // print("MEDIAQUERY SIZE: ${MediaQuery.of(context).size}");
     return Container(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height,
