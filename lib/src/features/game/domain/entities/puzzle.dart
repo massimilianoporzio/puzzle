@@ -34,21 +34,29 @@ class Puzzle extends Equatable {
     return Puzzle._(tiles: tiles, emptyPosition: emptyPos);
   }
 
-  bool canMove(Position tilePosition) {
+  bool canMove(Position tilePosition, {bool allowMultipleTile = false}) {
     Position emptyPos = emptyPosition;
     // print("EMPTY POS is $emptyPos");
     // print("TILE POS is $tilePosition");
-    if (tilePosition.y == emptyPos.y &&
-        ((tilePosition.x == emptyPos.x + 1) ||
-            (tilePosition.x == emptyPos.x - 1))) {
-      return true;
+    if (allowMultipleTile) {
+      if (tilePosition.y == emptyPos.y || tilePosition.x == emptyPos.x) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      if (tilePosition.y == emptyPos.y &&
+          ((tilePosition.x == emptyPos.x + 1) ||
+              (tilePosition.x == emptyPos.x - 1))) {
+        return true;
+      }
+      if (tilePosition.x == emptyPos.x &&
+          ((tilePosition.y == emptyPos.y - 1) ||
+              (tilePosition.y == emptyPos.y + 1))) {
+        return true;
+      }
+      return false;
     }
-    if (tilePosition.x == emptyPos.x &&
-        ((tilePosition.y == emptyPos.y - 1) ||
-            (tilePosition.y == emptyPos.y + 1))) {
-      return true;
-    }
-    return false;
   }
 
   //resituisce una nuova istanza di Puzzle con le tiles spostate

@@ -30,7 +30,7 @@ class GameCubit extends Cubit<GameState> {
   Puzzle get puzzle => state.puzzle;
 
   void onTileTapped(Tile tile) async {
-    final canMove = puzzle.canMove(tile.position);
+    final canMove = puzzle.canMove(tile.position, allowMultipleTile: true);
     if (canMove) {
       player.stop();
       player.setPlaybackRate(1.0);

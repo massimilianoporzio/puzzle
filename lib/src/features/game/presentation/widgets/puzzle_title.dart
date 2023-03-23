@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:loggy/loggy.dart';
 
 import '../../domain/entities/tile.dart';
 import 'painters.dart';
 
-class PuzzleTile extends StatelessWidget {
+class PuzzleTile extends StatelessWidget with UiLoggy {
   final double width;
   final double height;
   final int index;
@@ -26,6 +27,9 @@ class PuzzleTile extends StatelessWidget {
       top: (tile.position.y - 1) * height + 1,
       child: GestureDetector(
         onTap: onTap,
+        onPanEnd: (details) {
+          onTap();
+        },
         child: Container(
           // margin: const EdgeInsets.all(2.0),
           color: Colors.white,
