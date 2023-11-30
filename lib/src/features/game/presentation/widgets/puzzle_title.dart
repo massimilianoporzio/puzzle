@@ -32,7 +32,10 @@ class PuzzleTile extends StatelessWidget with UiLoggy {
         },
         child: Container(
           // margin: const EdgeInsets.all(2.0),
-          color: Colors.white,
+
+          decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.background,
+              border: Border.all(color: Theme.of(context).disabledColor)),
           height: height - 2,
           width: width - 2,
           alignment: Alignment.center,

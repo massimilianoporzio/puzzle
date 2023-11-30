@@ -1,28 +1,45 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loggy/loggy.dart';
+import 'package:puzzle/src/features/dark_mode/presentation/cubit/dark_mode_cubit.dart';
 import 'package:puzzle/src/features/game/presentation/cubit/sound/sound_cubit.dart';
 
 import 'package:puzzle/src/features/game/presentation/widgets/puzzle_area.dart';
 
 import '../cubit/game/game_cubit.dart';
 
-class GamePage extends StatelessWidget {
+class GamePage extends StatelessWidget with UiLoggy {
   const GamePage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    var themeMode = context.watch<DarkModeCubit>().state.mode;
     return Scaffold(
       appBar: AppBar(
         title: const Text("Dumura"),
         actions: [
-          IconButton(onPressed: () {
-            context.read<SoundCubit>().toggleMute();
-          }, icon: BlocBuilder<SoundCubit, SoundState>(
-            builder: (context, state) {
-              return Icon(state.muted ? Icons.volume_off : Icons.volume_mute);
-            },
-          )),
           IconButton(
+              tooltip: "Light / Dark mode",
+              onPressed: () {
+                loggy.debug("TOGGLE THEME MODE");
+                context.read<DarkModeCubit>().toggleDarkMode();
+              },
+              icon: Icon(themeMode == ThemeMode.light
+                  ? Icons.dark_mode
+                  : Icons.light_mode)),
+          IconButton(
+              tooltip: "Mute / Unmute",
+              onPressed: () {
+                context.read<SoundCubit>().toggleMute();
+              },
+              icon: BlocBuilder<SoundCubit, SoundState>(
+                builder: (context, state) {
+                  return Icon(
+                      state.muted ? Icons.volume_off : Icons.volume_mute);
+                },
+              )),
+          IconButton(
+            tooltip: "Reset game",
             onPressed: () {
               context.read<GameCubit>().resetPuzzle();
             },
