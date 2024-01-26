@@ -15,10 +15,12 @@ class GamePage extends StatelessWidget with UiLoggy {
   Widget build(BuildContext context) {
     var themeMode = context.watch<DarkModeCubit>().state.mode;
     return Scaffold(
+      backgroundColor: Color.fromARGB(255, 4, 39, 68),
       appBar: AppBar(
         title: const Text("Dumura"),
         actions: [
           IconButton(
+              color: Colors.white,
               tooltip: "Light / Dark mode",
               onPressed: () {
                 loggy.debug("TOGGLE THEME MODE");
@@ -28,6 +30,7 @@ class GamePage extends StatelessWidget with UiLoggy {
                   ? Icons.dark_mode
                   : Icons.light_mode)),
           IconButton(
+              color: Colors.white,
               tooltip: "Mute / Unmute",
               onPressed: () {
                 context.read<SoundCubit>().toggleMute();
@@ -39,6 +42,7 @@ class GamePage extends StatelessWidget with UiLoggy {
                 },
               )),
           IconButton(
+            color: Colors.white,
             tooltip: "Reset game",
             onPressed: () {
               context.read<GameCubit>().resetPuzzle();
@@ -53,6 +57,7 @@ class GamePage extends StatelessWidget with UiLoggy {
           // ignore: prefer_const_literals_to_create_immutables
           children: [
             Container(
+              color: Color.fromARGB(255, 4, 39, 68),
               height: MediaQuery.of(context).size.height * 0.75,
               width: MediaQuery.of(context).size.width,
               padding: const EdgeInsets.all(20.0),

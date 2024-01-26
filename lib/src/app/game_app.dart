@@ -15,7 +15,10 @@ class GameApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       themeMode: context.watch<DarkModeCubit>().state.mode,
       theme: ThemeData(
-          primarySwatch: Colors.deepPurple,
+          appBarTheme: AppBarTheme(
+              backgroundColor: Color.fromARGB(255, 4, 39, 68),
+              titleTextStyle: TextStyle(color: Colors.white, fontSize: 24)),
+          primarySwatch: Colors.red,
           brightness:
               themeMode == ThemeMode.dark ? Brightness.dark : Brightness.light),
       scrollBehavior: const MaterialScrollBehavior().copyWith(

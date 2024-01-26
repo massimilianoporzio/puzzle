@@ -43,8 +43,7 @@ class PuzzleTile extends StatelessWidget with UiLoggy {
             children: [
               CustomPaint(
                 size: Size(width, height),
-                painter:
-                    Tile1Painter(color: Colors.deepPurple, index: index + 1),
+                painter: Tile1Painter(color: Colors.red, index: index + 1),
               ),
               // Center(
               //   child: Text(tile.value.toString()),

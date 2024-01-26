@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:puzzle/src/features/dark_mode/presentation/cubit/dark_mode_cubit.dart';
 
 import 'package:puzzle/src/features/game/presentation/widgets/puzzle_title.dart';
 
@@ -22,7 +23,9 @@ class _PuzzleAreaState extends State<PuzzleArea> {
     return Container(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height,
-      color: Colors.black12,
+      color: context.watch<DarkModeCubit>().state.mode == ThemeMode.dark
+          ? Colors.white
+          : Colors.black54,
       child: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
           //CREO L'IMMAGINE DEL ROMBO
