@@ -14,45 +14,50 @@ class GamePage extends StatelessWidget with UiLoggy {
   @override
   Widget build(BuildContext context) {
     var themeMode = context.watch<DarkModeCubit>().state.mode;
-    return Scaffold(
-      backgroundColor: Color.fromARGB(255, 4, 39, 68),
-      appBar: AppBar(
-        title: const Text("Dumura"),
-        actions: [
-          IconButton(
-              color: Colors.white,
-              tooltip: "Light / Dark mode",
-              onPressed: () {
-                loggy.debug("TOGGLE THEME MODE");
-                context.read<DarkModeCubit>().toggleDarkMode();
-              },
-              icon: Icon(themeMode == ThemeMode.light
-                  ? Icons.dark_mode
-                  : Icons.light_mode)),
-          IconButton(
-              color: Colors.white,
-              tooltip: "Mute / Unmute",
-              onPressed: () {
-                context.read<SoundCubit>().toggleMute();
-              },
-              icon: BlocBuilder<SoundCubit, SoundState>(
-                builder: (context, state) {
-                  return Icon(
-                      state.muted ? Icons.volume_off : Icons.volume_mute);
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: const Color.fromARGB(255, 4, 39, 68),
+        appBar: AppBar(
+          centerTitle: false,
+          title: Image.asset(
+            'assets/dumuraLogo.png',
+            fit: BoxFit.contain,
+            height: 50,
+          ),
+          actions: [
+            IconButton(
+                color: Colors.white,
+                tooltip: "Light / Dark mode",
+                onPressed: () {
+                  loggy.debug("TOGGLE THEME MODE");
+                  context.read<DarkModeCubit>().toggleDarkMode();
                 },
-              )),
-          IconButton(
-            color: Colors.white,
-            tooltip: "Reset game",
-            onPressed: () {
-              context.read<GameCubit>().resetPuzzle();
-            },
-            icon: const Icon(Icons.restart_alt),
-          )
-        ],
-      ),
-      body: SafeArea(
-        child: Column(
+                icon: Icon(themeMode == ThemeMode.light
+                    ? Icons.dark_mode
+                    : Icons.light_mode)),
+            IconButton(
+                color: Colors.white,
+                tooltip: "Mute / Unmute",
+                onPressed: () {
+                  context.read<SoundCubit>().toggleMute();
+                },
+                icon: BlocBuilder<SoundCubit, SoundState>(
+                  builder: (context, state) {
+                    return Icon(
+                        state.muted ? Icons.volume_off : Icons.volume_mute);
+                  },
+                )),
+            IconButton(
+              color: Colors.white,
+              tooltip: "Reset game",
+              onPressed: () {
+                context.read<GameCubit>().resetPuzzle();
+              },
+              icon: const Icon(Icons.restart_alt),
+            )
+          ],
+        ),
+        body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           // ignore: prefer_const_literals_to_create_immutables
           children: [
