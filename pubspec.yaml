@@ -1,7 +1,7 @@
 name: puzzle
 description: A new Flutter project.
 publish_to: 'none'
-version: 0.0.1
+version: 0.0.1+1
 
 environment:
   sdk: '>=2.19.3 <3.0.0'
@@ -19,8 +19,15 @@ dependencies:
 
 dev_dependencies:
   flutter_lints: ^2.0.0
+  flutter_launcher_icons: ^0.13.1
   flutter_test:
     sdk: flutter
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/logo.png"
+  remove_alpha_ios: true
 
 flutter:
   uses-material-design: true
@@ -28,3 +35,4 @@ flutter:
     - assets/click.mp3
     - assets/reset.mp3
     - assets/dumuraLogo.png
+    - assets/logo.png
